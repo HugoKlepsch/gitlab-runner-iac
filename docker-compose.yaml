@@ -1,0 +1,9 @@
+version: '3.6'
+services:
+  runner:
+    restart: always
+    image: gitlab/gitlab-runner:alpine
+    volumes:
+      - ./config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+
