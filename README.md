@@ -13,4 +13,34 @@ create and register a single instance gitlab runner using docker-compose.
 - You can now start the runner using `docker-compose up`, or create and start
 the systemd service using `create-systemd-service.sh`.
 
+My config looks like this:
 
+```
+concurrent = 1
+check_interval = 0
+shutdown_timeout = 0
+
+[session_server]
+  session_timeout = 1800
+
+[[runners]]
+  name = "<snip>"
+  url = "<snip - It is the http url to access your gitlab>"
+  clone_url = "<snip - It is the http url to access your gitlab>"
+  id = 1
+  token = "<snip>"
+  token_obtained_at = 2023-09-14T03:00:48Z
+  token_expires_at = 0001-01-01T00:00:00Z
+  executor = "docker"
+  [runners.cache]
+    MaxUploadedArchiveSize = 0
+  [runners.docker]
+    tls_verify = false
+    image = "alpine:latest"
+    privileged = true
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    shm_size = 0
+```
